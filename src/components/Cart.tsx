@@ -3,6 +3,7 @@
 import { useCart } from '@/context/CartContext';
 import CartItem from './CartItem';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Cart() {
   const { cart, clearCart, totalItems, totalPrice } = useCart();
@@ -76,12 +77,19 @@ export default function Cart() {
               >
                 ล้างตะกร้า
               </button>
-              <button 
-                className="flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-                disabled={cart.items.length === 0}
+              <Link 
+                href="/checkout"
+                className={`flex-1 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-center ${
+                  cart.items.length === 0 ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''
+                }`}
+                onClick={() => {
+                  if (cart.items.length > 0) {
+                    setIsOpen(false);
+                  }
+                }}
               >
                 ชำระเงิน
-              </button>
+              </Link>
             </div>
           </div>
         </div>
